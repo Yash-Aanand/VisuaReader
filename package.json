@@ -1,0 +1,31 @@
+{
+  "name": "visuareader",
+  "version": "1.0.0",
+  "description": "Hands-free PDF reader powered by eye blinks and Electron",
+  "main": "main.js",
+  "scripts": {
+  "dev": "concurrently \"cross-env NODE_ENV=development electron .\" \"npm run dev --prefix frontend\"",
+  "electron": "electron .",
+  "build": "npm run build --prefix frontend"
+}
+
+,
+  "keywords": [
+    "electron",
+    "vite",
+    "react",
+    "pdf",
+    "blink",
+    "accessibility"
+  ],
+  "author": "Yash",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "electron": "^37.1.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}

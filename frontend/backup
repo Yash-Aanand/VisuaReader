@@ -1,0 +1,156 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { BookOpen, Play, Eye } from "lucide-react";
+
+export function MainContent() {
+  const [isDetecting, setIsDetecting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleStartDetection = async () => {
+    setIsLoading(true);
+    try {
+      const endpoint = isDetecting ? "stop-blink" : "start-blink";
+      const response = await fetch(`http://localhost:8000/${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setIsDetecting(!isDetecting);
+      }
+    } catch (error) {
+      console.error("Connection error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <div className="relative h-full w-full flex items-center justify-center px-6 pt-20 pb-20">
+      {/* Top-right Live Status Badge */}
+      <div className="absolute top-6 right-6 z-50">
+        <div
+          className={`flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border-0 shadow-lg transition-all duration-300 ${
+            isDetecting ? "shadow-green-500/20" : "shadow-red-500/20"
+          }`}
+        >
+          <div
+            className={`w-2 h-2 rounded-full animate-pulse ${
+              isDetecting
+                ? "bg-green-500 shadow-lg shadow-green-500/50"
+                : "bg-red-500 shadow-lg shadow-red-500/50"
+            }`}
+          />
+          <span className="text-xs font-medium text-white/80">
+            {isDetecting ? "Live" : "Paused"}
+          </span>
+        </div>
+      </div>
+
+      {/* Main Content Block */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="text-center max-w-2xl mx-auto"
+      >
+        {/* App Icon */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-purple-500/25">
+            <BookOpen className="w-12 h-12 text-white" />
+          </div>
+        </motion.div>
+
+        {/* Title */}
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl font-bold mb-4 text-white"
+        >
+          Welcome to VisuaReader
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          variants={itemVariants}
+          className="text-xl text-white/80 mb-12"
+        >
+          Hands-free PDF reading, powered by your eyes.
+        </motion.p>
+
+        {/* Blink Gestures */}
+        <motion.div variants={itemVariants} className="mb-12">
+          <div className="flex items-center justify-center mb-6">
+            <Eye className="w-6 h-6 text-white/80 mr-3" />
+            <h2 className="text-2xl font-semibold text-white">Blink Gestures</h2>
+          </div>
+
+          <div className="space-y-4 text-left max-w-md mx-auto">
+            <div className="flex items-center space-x-4">
+              <div className="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0" />
+              <span className="text-white">
+                <span className="font-medium">Long Blink</span> → Go to Next Page
+              </span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="w-3 h-3 bg-purple-500 rounded-full flex-shrink-0" />
+              <span className="text-white">
+                <span className="font-medium">Double Long Blink</span> → Go to Previous Page
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Start Detection Button */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <motion.button
+            onClick={handleStartDetection}
+            disabled={isLoading}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl shadow-blue-500/25 border border-blue-500/30 transition-all duration-300 flex items-center space-x-3 mx-auto"
+          >
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <Play className="w-5 h-5" />
+            )}
+            <span>{isDetecting ? "Stop Detection" : "Start Detection"}</span>
+          </motion.button>
+        </motion.div>
+
+        {/* Status Message */}
+        <motion.p
+          variants={itemVariants}
+          className="text-white/60 text-sm"
+        >
+          Ready to begin hands-free reading
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+}
