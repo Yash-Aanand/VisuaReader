@@ -4,12 +4,10 @@
   "description": "Hands-free PDF reader powered by eye blinks and Electron",
   "main": "main.js",
   "scripts": {
-  "dev": "concurrently \"cross-env NODE_ENV=development electron .\" \"npm run dev --prefix frontend\"",
-  "electron": "electron .",
-  "build": "npm run build --prefix frontend"
-}
-
-,
+    "dev": "concurrently \"cross-env NODE_ENV=development electron .\" \"npm run dev --prefix frontend\"",
+    "electron": "electron .",
+    "build": "npm run build --prefix frontend"
+  },
   "keywords": [
     "electron",
     "vite",
@@ -23,6 +21,7 @@
   "type": "commonjs",
   "devDependencies": {
     "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
     "electron": "^37.1.0"
   },
   "dependencies": {

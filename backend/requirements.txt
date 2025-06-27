@@ -5,3 +5,4 @@ opencv-python==4.11.0.86
 scipy==1.15.3
 numpy==1.26.4
 pyautogui==0.9.54
+psutil ==7.0.0
