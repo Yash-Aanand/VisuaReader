@@ -5,7 +5,7 @@ import subprocess
 import os
 import signal
 import platform
-import psutil  
+import psutil
 
 process = None  # Global process reference
 
@@ -34,10 +34,13 @@ app.add_middleware(
 def _kill_process_tree(proc):
     try:
         parent = psutil.Process(proc.pid)
-        for child in parent.children(recursive=True):
+        children = parent.children(recursive=True)
+        for child in children:
+            print(f"[INFO] Killing child PID {child.pid}")
             child.kill()
         parent.kill()
-        print("[INFO] Successfully terminated process tree.")
+        gone, alive = psutil.wait_procs([parent] + children, timeout=3)
+        print(f"[INFO] Successfully terminated process tree. Gone: {[p.pid for p in gone]}")
     except Exception as e:
         print(f"[ERROR] Could not terminate process tree: {e}")
 

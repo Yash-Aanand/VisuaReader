@@ -2,10 +2,23 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { spawn } = require("child_process");
 const fetch = require("node-fetch");
+const treeKill = require("tree-kill");
 
 let backend;
 let win;
 const isDev = process.env.NODE_ENV === "development";
+
+function killBackend() {
+  if (backend && backend.pid) {
+    treeKill(backend.pid, 'SIGTERM', (err) => {
+      if (err) {
+        console.warn("[Electron] Failed to kill backend:", err.message);
+      } else {
+        console.log("[Electron] ✅ Successfully killed backend process tree");
+      }
+    });
+  }
+}
 
 function createWindow() {
   win = new BrowserWindow({
@@ -22,7 +35,6 @@ function createWindow() {
     win.loadFile(path.join(__dirname, "frontend", "dist", "index.html"));
   }
 
-  // Graceful backend shutdown on window close
   win.on("close", async () => {
     if (backend) {
       try {
@@ -35,18 +47,23 @@ function createWindow() {
       } catch (err) {
         console.warn("[Electron] Could not reach backend /stop-blink:", err.message);
       }
+
+      killBackend();
     }
   });
 }
 
 app.whenReady().then(() => {
-  console.log("[Electron] Launching FastAPI backend...");
+  console.log("[Electron] 🚀 Launching FastAPI backend...");
 
   backend = spawn("python", ["-m", "uvicorn", "backend.server:app", "--host", "127.0.0.1", "--port", "8000"], {
     cwd: __dirname,
     shell: true,
-    stdio: "inherit",
+    detached: true,       // 🎯 Crucial to make it independent of the shell
+    stdio: "ignore",      // 👈 Needed for detached processes
   });
+
+  backend.unref();        // 🧠 Allow Electron to exit without waiting on child
 
   backend.on("exit", (code) => {
     console.log(`[Backend exited with code ${code}]`);
@@ -68,12 +85,7 @@ app.on("window-all-closed", async () => {
       console.warn("[Electron] Could not reach backend /stop-blink on quit:", err.message);
     }
 
-    try {
-      backend.kill("SIGTERM");
-      console.log("[Electron] Force killed backend process");
-    } catch (e) {
-      console.warn("[Electron] Failed to kill backend:", e.message);
-    }
+    killBackend();
   }
 
   if (process.platform !== "darwin") app.quit();
