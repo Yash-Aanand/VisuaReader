@@ -105,7 +105,7 @@ while True:
     else:
         print("[INFO] No face detected.")
 
-    cv2.imshow("MediaPipe Blink Detection", frame)
+    # cv2.imshow("MediaPipe Blink Detection", frame)
     if cv2.waitKey(5) & 0xFF == ord('q'):
         print("[INFO] Quitting...")
         break

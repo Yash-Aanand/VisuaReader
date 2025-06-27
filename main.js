@@ -58,9 +58,11 @@ app.whenReady().then(() => {
 
   backend = spawn("python", ["-m", "uvicorn", "backend.server:app", "--host", "127.0.0.1", "--port", "8000"], {
     cwd: __dirname,
-    shell: true,
+    
     detached: true,       // 🎯 Crucial to make it independent of the shell
     stdio: "ignore",      // 👈 Needed for detached processes
+    // shell: true,
+    windowsHide: true, // 🪟 Hide console window on Windows
   });
 
   backend.unref();        // 🧠 Allow Electron to exit without waiting on child
