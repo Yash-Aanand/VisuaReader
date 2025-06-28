@@ -17,7 +17,8 @@ def calculate_EAR(eye):
     C = dist.euclidean(eye[0], eye[3])
     return (A + B) / (2.0 * C)
 
-# === Constants ===
+# === Constants === #PLANNED TO MAKE CONFIGURABLE
+# Thresholds for blink detection
 blink_thresh = 0.20
 blink_duration_thresh = 0.3
 double_blink_gap = 1
