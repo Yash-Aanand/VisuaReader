@@ -149,7 +149,7 @@ export function MainContent() {
           variants={itemVariants}
           className="text-xl text-white/80 mb-12"
         >
-          Hands-free PDF reading, powered by your eyes.
+          Hands-free reading, powered by your eyes.
         </motion.p>
 
         {/* Blink Gestures */}
@@ -159,19 +159,23 @@ export function MainContent() {
               <div className="absolute inset-0 bg-blue-500 rounded-full blur opacity-75" />
               <Eye className="relative w-6 h-6 text-blue-400" />
             </div>
-            <h2 className="text-2xl font-semibold text-white">Blink Gestures</h2>
+            <h2 className="text-2xl font-semibold text-white">
+              Blink Gestures
+            </h2>
           </div>
           <div className="space-y-4 text-left max-w-md mx-auto">
             <div className="flex items-center space-x-4">
               <div className="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0" />
               <span className="text-white">
-                <span className="font-medium">Long Blink</span> → Go to Next Page
+                <span className="font-medium">Long Blink</span> → Go to Next
+                Page
               </span>
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-3 h-3 bg-purple-500 rounded-full flex-shrink-0" />
               <span className="text-white">
-                <span className="font-medium">Double Long Blink</span> → Go to Previous Page
+                <span className="font-medium">Double Long Blink</span> → Go to
+                Previous Page
               </span>
             </div>
           </div>
@@ -200,8 +204,14 @@ export function MainContent() {
                 </div>
               ) : (
                 <div className="flex items-center space-x-3">
-                  {isDetecting ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                  <span>{isDetecting ? "Pause Detection" : "Start Detection"}</span>
+                  {isDetecting ? (
+                    <Pause className="w-5 h-5" />
+                  ) : (
+                    <Play className="w-5 h-5" />
+                  )}
+                  <span>
+                    {isDetecting ? "Pause Detection" : "Start Detection"}
+                  </span>
                 </div>
               )}
             </motion.button>
