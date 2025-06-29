@@ -15,7 +15,7 @@ def calculate_EAR(eye):
     A = dist.euclidean(eye[1], eye[5])
     B = dist.euclidean(eye[2], eye[4])
     C = dist.euclidean(eye[0], eye[3])
-    return (A + B) / (2.0 * C)
+    return (A + B) / (2.0 * C) #done
 
 # === Constants === #PLANNED TO MAKE CONFIGURABLE
 # Thresholds for blink detection
@@ -24,7 +24,7 @@ blink_duration_thresh = 0.3
 double_blink_gap = 1
 
 # === Mediapipe Setup ===
-print("[INFO] Initializing MediaPipe Face Mesh...")
+print("[INFO] Initializing MediaPipe Face Mesh...") 
 try:
     mp_face_mesh = mp.solutions.face_mesh
     face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=True)
