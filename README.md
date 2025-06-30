@@ -6,6 +6,13 @@ A hands-free PDF/book reader powered by **blink detection**. Combines a React + 
 
 ---
 
+## DEMO
+
+https://github.com/user-attachments/assets/038500c8-6ad8-40a8-bc79-79ee25e55878
+(webcam window is shown for demo purposes)
+
+
+
 ## 🎯 Features
 
 - ✅ Long blink → **Next Page**
