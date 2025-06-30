@@ -1,124 +1,144 @@
-# VisuaReader Blink Detection (MediaPipe + OpenCV)
+# VisuaReader
 
-A lightweight, real-time eye blink detection system using **MediaPipe** and **OpenCV**. This tool enables hands-free control (e.g., turning pages) by detecting long and double blinks through facial landmark analysis.
+A hands-free PDF/book reader powered by **blink detection**. Combines a React + Tailwind frontend with a Python FastAPI backend that runs **MediaPipe + OpenCV** for real-time blink detection.
 
 ---
- 
+
 ## 🎯 Features
 
-- ✅ Real-time blink detection
-- ✅ Long blink → "Next Page"
-- ✅ Double long blink → "Previous Page"
-- ✅ Efficient CPU-only pipeline using Google MediaPipe
-- ✅ Debug info with EAR (Eye Aspect Ratio) display
+- ✅ Long blink → **Next Page**
+- ✅ Double long blink → **Previous Page**
+- ✅ Real-time detection using webcam
+- ✅ CPU-friendly — no external ML models required
+- ✅ Modular frontend/backend setup
+- ✅ Clean modern UI
 
 ---
 
-## 🧠 How It Works
+## 🧠 How Blink Detection Works
 
-1. Uses MediaPipe’s **468-point face mesh** to track facial landmarks.
+1. Uses **MediaPipe’s 468-point face mesh** to track facial landmarks.
 2. Extracts key points around both eyes.
-3. Calculates **EAR (Eye Aspect Ratio)**:
+3. Calculates the **Eye Aspect Ratio (EAR)**:
 
-EAR = (A + B) / (2 * C)
+   ```
+   EAR = (A + B) / (2 * C)
+   ```
 
-yaml
-Copy
-Edit
+   Where:
 
-Where:
-- A and B = vertical distances between eye points
-- C = horizontal distance across the eye
+   - A and B are vertical distances
+   - C is the horizontal eye width
 
-4. If EAR falls below a threshold:
-- It's considered a blink.
-- Blink duration and timing are used to detect:
-  - Long Blink → Next Page
-  - Double Long Blink → Previous Page
+4. Blinks are detected when EAR drops below a threshold for a sustained duration.
+5. Gesture Mappings:
+   - 👁️ Long Blink → Next Page
+   - 👁️👁️ Double Long Blink → Previous Page
 
 ---
 
 ## 📁 Project Structure
 
-visuareader-blink/
-├── main.py # Main blink detection script
-├── requirements.txt # Python dependencies
-├── .gitignore # Git exclusions
-└── README.md # Project documentation
-
-yaml
-Copy
-Edit
+```
+VisuaReader/
+├── backend/
+│   ├── main.py                # Blink detection script
+│   ├── server.py              # FastAPI app
+│   └── requirements.txt       # Backend dependencies
+├── frontend/
+│   ├── index.html             # Main HTML entry
+│   ├── src/                   # React app
+│   └── vite.config.ts         # Vite setup
+├── main.js                    # Electron entry point
+├── package.json               # Root scripts (Electron + Dev tools)
+└── README.md
+```
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation & Run
 
-1. Clone this repository:
+### 1. Clone the Repository
 
-   ```bash
-   git clone https://github.com/yourname/visuareader-blink.git
-   cd visuareader-blink
-Create and activate a virtual environment:
+```bash
+git clone https://github.com/Yash-Aanand/VisuaReader.git
+cd VisuaReader
+```
 
-Windows:
+### 2. Install Frontend & Root Dependencies
 
-bash
-Copy
-Edit
-python -m venv venv
-venv\Scripts\activate
-macOS/Linux:
+```bash
+npm install
+cd frontend
+npm install
+cd ..
+```
 
-bash
-Copy
-Edit
-python3 -m venv venv
-source venv/bin/activate
-Install dependencies:
+### 3. Set Up Backend (Python 3.10[+])
 
-bash
-Copy
-Edit
+```bash
+cd backend
 pip install -r requirements.txt
-🚀 Run the Script
-bash
-Copy
-Edit
-python main.py
-A webcam window will open.
+cd ..
+```
 
-Press q to exit.
+### 4. Run in Development (root directory)
 
-✅ Gesture Mappings
-Gesture	Action
-👁️ Long Blink	Next Page
-👁️👁️ Double Long Blink	Previous Page
+```bash
+npm run dev
+```
 
-🧰 Dependencies
-Only essential packages are included:
+Starts:
 
+- ⚛️ React frontend on `localhost:5173`
+- ⚡ FastAPI backend on `localhost:8000`
+- 🧠 Blink detection via Electron + Python script
+
+### 5. Build for Production (root directory)
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 🧪 Dependencies
+
+**Python (in `requirements.txt`):**
+
+```
+fastapi==0.115.1
+uvicorn==0.34.0
 mediapipe==0.10.21
-
 opencv-python==4.11.0.86
-
 scipy==1.15.3
-
 numpy==1.26.4
+pyautogui==0.9.54
+psutil==7.0.0
+```
 
-🧪 Notes
-Works best under good lighting conditions.
+**JS/Frontend:**
 
-No .dat model files needed — everything runs from MediaPipe’s internal model.
+- React + TypeScript
+- Tailwind CSS
+- Framer Motion
+- Electron
 
-Easily extendable to include wink-based commands or audio feedback.
+---
 
-👨‍💻 Author
-Yash — Computer Science student at the University of Waterloo, building hands-free accessible tools using computer vision and modern Python tech.
+## 🔐 License
 
-🔐 License
-MIT License — free to use, modify, and distribute.
+MIT — free to use, modify, and distribute.
 
-yaml
-Copy
-Edit
+---
+
+## 👨‍💻 Author
+
+**Yash Aanand**  
+Computer Science @ University of Waterloo  
+Building accessible tools with computer vision and full-stack magic.
+
+- 🌐 [yashaanand.com](https://yashaanand.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/yash-aanand-35192b273/)
+- 🛠️ [GitHub](https://github.com/Yash-Aanand)
