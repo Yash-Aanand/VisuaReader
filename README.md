@@ -2,6 +2,8 @@
 
 A hands-free PDF/book reader powered by **blink detection**. Combines a React + Tailwind frontend with a Python FastAPI backend that runs **MediaPipe + OpenCV** for real-time blink detection.
 
+📚 Start detection, open your preferred reader, and use **long or double long blinks** to flip pages.
+
 ---
 
 ## 🎯 Features
