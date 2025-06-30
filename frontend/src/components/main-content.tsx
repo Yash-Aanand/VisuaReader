@@ -147,7 +147,7 @@ export function MainContent() {
         {/* Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="text-xl text-white/80 mb-12"
+          className="text-xl text-white/90 mb-12"
         >
           Hands-free reading, powered by your eyes.
         </motion.p>
@@ -223,7 +223,7 @@ export function MainContent() {
               {hasError
                 ? "⚠️ Unable to connect to backend. Check if server is running."
                 : isDetecting
-                ? "👁️ Detection is active. Start blinking to navigate!"
+                ? "👁️ Detection is active. Open your reader and start blinking to navigate!"
                 : "Ready to begin hands-free reading"}
             </p>
           </div>
