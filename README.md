@@ -1,4 +1,13 @@
-# VisuaReader
+<h1 style="font-size: 5rem; display: flex; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/0b04012c-8de9-40aa-a8ce-89003a948e96" alt="icon_vr"
+       width="40" style="margin-right: 12px;" />
+  <span style="font-size: 6rem; line-height: 1;">VisuaReader</span>
+</h1>
+
+
+
+
+
 
 A hands-free PDF/book reader powered by **blink detection**. Combines a React + Tailwind frontend with a Python FastAPI backend that runs **MediaPipe + OpenCV** for real-time blink detection.
 
