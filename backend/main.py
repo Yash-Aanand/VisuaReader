@@ -7,8 +7,8 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 
-# VisuaReader Blink Detection Script
-print("[INFO] Starting VisuaReader Blink Detection Script...")
+# VisuaReader Blink Detection Script 
+print("[INFO] Starting VisuaReader Blink Detection Script...") #remove later in prod
 
 # === EAR Calculation === wooo
 def calculate_EAR(eye):
