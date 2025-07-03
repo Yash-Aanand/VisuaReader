@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 # VisuaReader Blink Detection Script
 print("[INFO] Starting VisuaReader Blink Detection Script...")
 
-# === EAR Calculation ===
+# === EAR Calculation === wooo
 def calculate_EAR(eye):
     A = dist.euclidean(eye[1], eye[5])
     B = dist.euclidean(eye[2], eye[4])
