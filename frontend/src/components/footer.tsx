@@ -34,7 +34,7 @@ export function Footer() {
         </a>
         <span className="mx-2">•</span>
         <a
-          href="https://www.linkedin.com/in/yash-aanand-35192b273/"
+          href="https://www.linkedin.com/in/Yash-Aanand/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1 hover:text-white transition-transform duration-200 ease-in-out hover:scale-110"
