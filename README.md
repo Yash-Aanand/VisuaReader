@@ -3,7 +3,7 @@
        width="40" style="margin-right: 12px;" />
   <span style="font-size: 6rem; line-height: 1;">VisuaReader</span>
 </h1>
-
+ 
 
 
 
